@@ -108,20 +108,16 @@ namespace QuestionnaireMultiagent
                             apiKey: API_KEY)
                         .Build();
 
-            BingConnector bing = new BingConnector(BING_API_KEY);
+            // BingConnector bing = new BingConnector(BING_API_KEY);
 
-            kernel.ImportPluginFromObject(new WebSearchEnginePlugin(bing), "bing");
+            // kernel.ImportPluginFromObject(new WebSearchEnginePlugin(bing), "bing");
 
             ChatCompletionAgent QuestionAnswererAgent =
                 new()
                 {
                     Instructions = QuestionAnswererPrompt,
                     Name = "QuestionAnswererAgent",
-                    Kernel = kernel,
-                    ExecutionSettings = new OpenAIPromptExecutionSettings
-                    {
-                        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-                    }
+                    Kernel = kernel
                 };
 
             ChatCompletionAgent AnswerCheckerAgent =
@@ -129,11 +125,7 @@ namespace QuestionnaireMultiagent
                 {
                     Instructions = AnswerCheckerPrompt,
                     Name = "AnswerCheckerAgent",
-                    Kernel = kernel,
-                    ExecutionSettings = new OpenAIPromptExecutionSettings
-                    {
-                        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-                    }
+                    Kernel = kernel
                 };
 
             ChatCompletionAgent LinkCheckerAgent =
